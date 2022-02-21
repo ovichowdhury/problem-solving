@@ -43,10 +43,9 @@ if __name__ == "__main__":
     POPULATION_SIZE = 50
     GENES = [0, 1]
     TARGET = np.array([
-        [0, 0, 0, 0],
-        [0, 1, 1, 0],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1]
+        [0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1]
     ])
     # total population
     population = init_population(
