@@ -12,38 +12,37 @@ class Heap {
     } else throw new TypeError("Invalid Data Type");
   }
 
-  // delete(index) {
-  //   if (typeof index === "number" && index < this.arr.length) {
-  //     this.swap(index, this.arr.length - 1);
-  //     this.arr.pop();
-  //     this.downHeapify(0);
-  //   } else throw new TypeError("Invalid Data Type");
-  // }
+  delete(index) {
+    if (typeof index === "number" && index < this.arr.length) {
+      this.swap(index, this.arr.length - 1);
+      this.arr.pop();
+      this.downHeapify(index);
+    } else throw new TypeError("Invalid Data Type");
+  }
 
-  // downHeapify(parent) {
-  //   console.log(this.arr[parent]);
-  //   let largest = parent;
-  //   const left = 2 * parent + 1;
-  //   const right = 2 * parent + 2;
-  //   let conditionLeft = false;
-  //   conditionLeft =
-  //     this.type === "MIN"
-  //       ? left < this.arr.length && this.arr[left] < this.arr[largest]
-  //       : left < this.arr.length && this.arr[left] > this.arr[largest];
-  //   if (conditionLeft) largest = left;
+  downHeapify(parent) {
+    let pivot = parent;
+    const left = 2 * parent + 1;
+    const right = 2 * parent + 2;
+    let conditionLeft = false;
+    conditionLeft =
+      this.type === "MIN"
+        ? left < this.arr.length && this.arr[pivot] > this.arr[left]
+        : left < this.arr.length && this.arr[pivot] < this.arr[left];
+    if (conditionLeft) pivot = left;
 
-  //   let conditionRight = false;
-  //   conditionRight =
-  //     this.type === "MIN"
-  //       ? right < this.arr.length && this.arr[right] < this.arr[largest]
-  //       : right < this.arr.length && this.arr[right] > this.arr[largest];
-  //   if (conditionRight) largest = right;
+    let conditionRight = false;
+    conditionRight =
+      this.type === "MIN"
+        ? right < this.arr.length && this.arr[pivot] > this.arr[right]
+        : right < this.arr.length && this.arr[pivot] < this.arr[right];
+    if (conditionRight) pivot = right;
 
-  //   if (parent !== largest) {
-  //     this.swap(parent, largest);
-  //     this.downHeapify(largest);
-  //   }
-  // }
+    if (parent !== pivot) {
+      this.swap(parent, pivot);
+      this.downHeapify(pivot);
+    }
+  }
 
   upHeapify(childIndex) {
     const parentIndex = Math.floor((childIndex - 1) / 2);
@@ -72,17 +71,3 @@ class Heap {
     }
   }
 }
-
-// const heap = new Heap("MIN");
-// heap.insert(1);
-// heap.insert(3);
-// heap.insert(4);
-// heap.insert(5);
-// heap.insert(9);
-// heap.insert(12);
-
-// console.log(heap.arr);
-
-// heap.delete(1);
-
-// console.log(heap.arr);
