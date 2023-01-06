@@ -1,6 +1,22 @@
 // Problem: https://leetcode.com/problems/valid-sudoku/
 
 /**
+ * Checks validity of sub grid
+ */
+var isSubGridValid = function (board, iStart, iEnd, jStart, jEnd) {
+  const ht = {};
+  for (let i = iStart; i <= iEnd; i++) {
+    for (let j = jStart; j <= jEnd; j++) {
+      const number = board[i][j];
+      if (ht[number] === undefined) {
+        if (number !== ".") ht[number] = 1;
+      } else return false;
+    }
+  }
+  return true;
+};
+
+/**
  * @param {character[][]} board
  * @return {boolean}
  */
@@ -14,17 +30,30 @@ var isValidSudoku = function (board) {
       const colNumber = board[j][i];
       // process.stdout.write(`${colNumber} `);
       // checking row
-      if (rowNumber === ".") continue;
-      if (rowTable[rowNumber] === undefined) rowTable[rowNumber] = 1;
-      else return false;
+      if (rowTable[rowNumber] === undefined) {
+        if (rowNumber !== ".") rowTable[rowNumber] = 1;
+      } else return false;
 
       // checking col
-      if (colNumber === ".") continue;
-      if (colTable[colNumber] === undefined) colTable[colNumber] = 1;
-      else return false;
+      if (colTable[colNumber] === undefined) {
+        if (colNumber !== ".") colTable[colNumber] = 1;
+      } else return false;
     }
   }
-  return true;
+  // checking uniqueness of 3X3 grid
+  if (
+    isSubGridValid(board, 0, 2, 0, 2) &&
+    isSubGridValid(board, 0, 2, 3, 5) &&
+    isSubGridValid(board, 0, 2, 6, 8) &&
+    isSubGridValid(board, 3, 5, 0, 2) &&
+    isSubGridValid(board, 3, 5, 3, 5) &&
+    isSubGridValid(board, 3, 5, 6, 8) &&
+    isSubGridValid(board, 6, 8, 0, 2) &&
+    isSubGridValid(board, 6, 8, 3, 5) &&
+    isSubGridValid(board, 6, 8, 6, 8)
+  )
+    return true;
+  else return false;
 };
 
 const isVal = isValidSudoku([
