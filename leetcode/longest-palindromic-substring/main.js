@@ -10,7 +10,7 @@ var isPalindrome = function (s) {
  * @param {string} s
  * @return {string}
  */
-var longestPalindrome = function (s) {
+var longestPalindromeN3Complexity = function (s) {
   let longest = "";
   if (s.length === 1) return s;
   for (let i = 0; i < s.length - 1; i++) {
@@ -23,8 +23,49 @@ var longestPalindrome = function (s) {
   return longest;
 };
 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function (s) {
+  let res = "";
+  let resLen = 0;
+  for (let i = 0; i < s.length; i++) {
+    /**
+     * Checking the odd string from middle
+     */
+    let l = i;
+    let r = i;
+    while (l >= 0 && r < s.length && s[l] === s[r]) {
+      if (r - l + 1 > resLen) {
+        res = s.substring(l, r + 1);
+        resLen = r - l + 1;
+      }
+      l--;
+      r++;
+    }
+
+    /**
+     * Checking the even string
+     */
+    l = i;
+    r = i + 1;
+    while (l >= 0 && r < s.length && s[l] === s[r]) {
+      if (r - l + 1 > resLen) {
+        res = s.substring(l, r + 1);
+        resLen = r - l + 1;
+      }
+      l--;
+      r++;
+    }
+  }
+  return res;
+};
+
 console.log(
   longestPalindrome(
     "anugnxshgonmqydttcvmtsoaprxnhpmpovdolbidqiyqubirkvhwppcdyeouvgedccipsvnobrccbndzjdbgxkzdbcjsjjovnhpnbkurxqfupiprpbiwqdnwaqvjbqoaqzkqgdxkfczdkznqxvupdmnyiidqpnbvgjraszbvvztpapxmomnghfaywkzlrupvjpcvascgvstqmvuveiiixjmdofdwyvhgkydrnfuojhzulhobyhtsxmcovwmamjwljioevhafdlpjpmqstguqhrhvsdvinphejfbdvrvabthpyyphyqharjvzriosrdnwmaxtgriivdqlmugtagvsoylqfwhjpmjxcysfujdvcqovxabjdbvyvembfpahvyoybdhweikcgnzrdqlzusgoobysfmlzifwjzlazuepimhbgkrfimmemhayxeqxynewcnynmgyjcwrpqnayvxoebgyjusppfpsfeonfwnbsdonucaipoafavmlrrlplnnbsaghbawooabsjndqnvruuwvllpvvhuepmqtprgktnwxmflmmbifbbsfthbeafseqrgwnwjxkkcqgbucwusjdipxuekanzwimuizqynaxrvicyzjhulqjshtsqswehnozehmbsdmacciflcgsrlyhjukpvosptmsjfteoimtewkrivdllqiotvtrubgkfcacvgqzxjmhmmqlikrtfrurltgtcreafcgisjpvasiwmhcofqkcteudgjoqqmtucnwcocsoiqtfuoazxdayricnmwcg"
   )
 );
+
+// console.log(longestPalindrome("babad"));
