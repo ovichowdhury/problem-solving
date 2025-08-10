@@ -10,6 +10,8 @@ class TreeNode:
 
 
 class Solution:
+    # Time Complexity: O(n), where n is the number of nodes in the tree.
+    # Space Complexity: O(h), where h is the height of the tree (due to
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
@@ -17,6 +19,26 @@ class Solution:
         left_depth = self.maxDepth(root.left)
         right_depth = self.maxDepth(root.right)
         return 1 + max(left_depth, right_depth)
+    
+    # Time Complexity: O(n), where n is the number of nodes in the tree.
+    # Space Complexity: O(n) in the worst case (if the tree is skewed), or O(w) where w is the maximum width of the tree (for a balanced tree).
+    def maxDepthBFS(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        queue = [root]
+        depth = 0
+
+        while queue:
+            level_size = len(queue)
+            for _ in range(level_size):
+                node = queue.pop(0)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            depth += 1
+        return depth
     
 
 # Example usage:
@@ -56,7 +78,7 @@ if __name__ == "__main__":
     root = TreeNode(1)
     root.left = TreeNode(2, TreeNode(4), TreeNode(5))
     root.right = TreeNode(3)
-    print(solution.maxDepth(root))  # Output: 3
+    print(solution.maxDepthBFS(root))  # Output: 3
 
 
     
