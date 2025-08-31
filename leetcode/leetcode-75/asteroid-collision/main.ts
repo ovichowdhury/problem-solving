@@ -63,19 +63,51 @@ function asteroidCollision2(asteroids: number[]): number[] {
   return stack;
 }
 
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+function asteroidCollision3(asteroids: number[]): number[] {
+  const stack: number[] = [];
+  for (let asteroid of asteroids) {
+    let isAlive = true;
+
+    // collision detection
+    while (
+      isAlive &&
+      stack.length > 0 &&
+      asteroid < 0 &&
+      stack[stack.length - 1] > 0
+    ) {
+      // type of collision
+      if (Math.abs(stack[stack.length - 1]) === Math.abs(asteroid)) {
+        stack.pop();
+        isAlive = false;
+      } else if (Math.abs(asteroid) > Math.abs(stack[stack.length - 1])) {
+        stack.pop();
+      } else {
+        isAlive = false;
+      }
+    }
+
+    if (isAlive) {
+      stack.push(asteroid);
+    }
+  }
+  return stack;
+}
+
 // example usage
 const asteroids = [5, 10, -5];
-const result = asteroidCollision2(asteroids);
+const result = asteroidCollision3(asteroids);
 console.log(result); // Output: [5, 10]
 
 const asteroids2 = [8, -8];
-const result2 = asteroidCollision2(asteroids2);
+const result2 = asteroidCollision3(asteroids2);
 console.log(result2); // Output: []
 
 const asteroids3 = [10, 2, -5];
-const result3 = asteroidCollision2(asteroids3);
+const result3 = asteroidCollision3(asteroids3);
 console.log(result3); // Output: [10]
 
 const asteroids4 = [-2, -2, 1, -2];
-const result4 = asteroidCollision2(asteroids4);
+const result4 = asteroidCollision3(asteroids4);
 console.log(result4); // Output: [-2, -2, -2]
