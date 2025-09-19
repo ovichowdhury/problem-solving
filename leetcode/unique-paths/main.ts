@@ -23,4 +23,4 @@ function uniquePaths(m: number, n: number): number {
   return dp[m - 1][n - 1]; // Return the bottom-right corner value
 }
 
-uniquePaths(3, 3); // Example usage, should return 28
+console.log(uniquePaths(3, 2)); // Example usage, should return 3
