@@ -1,7 +1,14 @@
 ## Folder Structure
 
-1. algorithms: Organized by algorithm type or name
-2. data-structures: Organized by data structures type or name
-3. design-patterns: Organized by design patterns type or name
-4. hackerrank: Organized by Hackerrank problem name and link
-5. gists: Useful code snippet by technology
+- `algorithms` — organized by algorithm type or name
+- `data-structures` — organized by data structure type or name
+- `design-patterns` — organized by design pattern name and examples
+- `hackerrank` — Hackerrank problems (name + link)
+- `gists` — useful code snippets, grouped by technology
+
+## Search for a Problem
+
+```bash
+# Find directories with "triangle" in the name
+find . -type d -name "*triangle*"
+```
