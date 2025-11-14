@@ -7,12 +7,20 @@ class Solution:
         shift_bits = 10  # Since nums[i] <= 1000, we can use 10 bits to store each number
         mask = (1 << shift_bits) - 1  # Mask to extract the last 10 bits
 
-        # print(bin(mask))  # Debug: print the binary representation of the mask
-
+        # encode both numbers into one
         for i in range(n):
             nums[i] = nums[i] | nums[i + n] << shift_bits
+
+        # decode for extracting both number
+        # & operation for extracting lower bits (x)
+        # >> right shift for extracting higher bits (y)
+        for j in range(n - 1, -1, -1):
+            x = nums[j] & mask
+            y = nums[j] >> shift_bits
+            nums[2 * j] = x
+            nums[(2 * j) + 1] = y
         
-        print(nums)
+        return nums
         
 
 # Example Usage
