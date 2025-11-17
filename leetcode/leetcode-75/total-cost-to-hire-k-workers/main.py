@@ -37,11 +37,49 @@ class Solution:
 
         return total_cost
 
+
+class Solution2:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        leftq = []
+        rightq = []
+
+        l = 0
+        r = len(costs) - 1
+
+        for i in range(candidates):
+            if l <= r:
+                heapq.heappush(leftq, costs[l])
+                l += 1
+        
+        for i in range(candidates):
+            if l <= r:
+                heapq.heappush(rightq, costs[r])
+                r -= 1
+        
+        total_cost = 0
+
+        for _ in range(k):
+            if rightq == [] or (leftq and leftq[0] <= rightq[0]):
+                total_cost += heapq.heappop(leftq)
+
+                if l <= r:
+                    heapq.heappush(leftq, costs[l])
+                    l += 1
+            
+            else:
+                total_cost += heapq.heappop(rightq)
+
+                if l <= r:
+                    heapq.heappush(rightq, costs[r])
+                    r -= 1
+        
+        return total_cost
+
         
 
 
 # Example usage 
-sol = Solution()
+sol = Solution2()
 print(sol.totalCost([17,12,10,2,7,2,11,20,8], 3, 4))  # Expected Output: 11
 print(sol.totalCost([1,2,4,1], 3, 3))  # Expected Output: 4
 
