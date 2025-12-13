@@ -5,30 +5,27 @@ from typing import List
 
 class Solution:
     def trap(self, height: List[int]) -> int:
-        if not height or len(height) == 1:
-            return 0
-        i, j = 0, 1
-        water = 0
+        left, right = 0, len(height) - 1
+        left_max, right_max = 0, 0
+        water_trapped = 0
 
-        while j < len(height):
-            # i is zero height
-            if height[i] == 0:
-                i += 1
-                j = i + 1
-                continue
+        while left < right:
+            if height[left] < height[right]:
+                # Process Left
+                if height[left] >= left_max:
+                    left_max = height[left]
+                else:
+                    water_trapped += left_max - height[left]
+                left += 1
+            else:
+                # Process Right
+                if height[right] >= right_max:
+                    right_max = height[right]
+                else:
+                    water_trapped += right_max - height[right]
+                right -= 1
 
-            # detect rectangle
-            if height[j] >= height[i] and j - i > 1:
-                w, h = (j - i) - 1, height[i]
-                area = w * h
-                trapped_water = area - sum(height[i+1:j])
-                water += trapped_water
-                i = j
-                j = i + 1
-                continue
-            j += 1
-
-        return water
+        return water_trapped
 
 
 
@@ -50,15 +47,15 @@ if __name__ == "__main__":
     print(f"Example 2: {heights2}")
     print(f"Water trapped: {result2}\n")
     
-    # # Example 3
-    # heights3 = [9, 8, 9]
-    # result3 = solution.trap(heights3)
-    # print(f"Example 3: {heights3}")
-    # print(f"Water trapped: {result3}\n")
+    # Example 3
+    heights3 = [9, 8, 9]
+    result3 = solution.trap(heights3)
+    print(f"Example 3: {heights3}")
+    print(f"Water trapped: {result3}\n")
     
-    # # Example 4
-    # heights4 = [1, 0, 2]
-    # result4 = solution.trap(heights4)
-    # print(f"Example 4: {heights4}")
-    # print(f"Water trapped: {result4}\n")
+    # Example 4
+    heights4 = [1, 0, 2]
+    result4 = solution.trap(heights4)
+    print(f"Example 4: {heights4}")
+    print(f"Water trapped: {result4}\n")
 
