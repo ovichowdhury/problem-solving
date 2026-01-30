@@ -29,5 +29,4 @@ WHERE (
     WHERE d2.visited_on BETWEEN d1.visited_on - INTERVAL '6 days' AND d1.visited_on
 ) = 7
 ORDER BY d1.visited_on ASC;
-    where
 
